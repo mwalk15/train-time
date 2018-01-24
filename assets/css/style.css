@@ -1,39 +1,4 @@
-table {
-	width: 100%;
-}
-
-#jumbotron {
-}
 
 h1 {
 	text-align: center;
-}
-
-h4 {
-	background: green;
-	color: white;
-	margin-top: 0px;
-	padding: 10px;
-}
-
-#table {
-	border: 1px solid green;
-	margin-bottom: 20px;
-}
-
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-#form {
-	border: 1px solid green;
-}
-
-.form-group {
-	padding: 10px;
 }
