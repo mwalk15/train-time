@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
 </head>
 <body>
 	
@@ -27,7 +28,7 @@
 							<th>Train Name</th>
 							<th>Line</th>
 							<th>Destination</th>
-							<th>Frequency</th>
+							<th>Frequency (mins)</th>
 							<th>Next Arrival</th>
 							<th>Minutes Away</th>
 						</tr>
@@ -49,7 +50,7 @@
 				<form>
 					<div class="form-group">
 						<label for="">Train Name</label>
-						<input type="text" class="form-control" id="trainNameInput">
+						<input type="text" class="form-control" id="trainInput">
 					</div>
 
 					<div class="form-group">
@@ -64,7 +65,7 @@
 
 					<div class="form-group">
 						<label for="">First Train Time (HH:mm - military time)</label>
-						<input type="text" class="form-control" id="trainTimeInput">
+						<input type="text" class="form-control" id="timeInput">
 					</div>
 
 					<div class="form-group">
