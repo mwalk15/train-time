@@ -15,12 +15,13 @@ $(document).ready(function(){
 
 	// 2. Button for adding Trains
 	$("#addTrainBtn").on("click", function(){
+		event.preventDefault();
 
 		// Grabs user input and assign to variables
 		var trainName = $("#trainInput").val().trim();
 		var lineName = $("#lineInput").val().trim();
 		var destination = $("#destinationInput").val().trim();
-		var timeInput = moment($("#timeInput").val().trim(), "HH:mm").subtract(10, "years").format("X");;
+		var timeInput = moment($("#timeInput").val().trim(), "HH:mm").format("X");
 		var frequencyInput = $("#frequencyInput").val().trim();
 
 		// Test for variables entered
@@ -41,7 +42,7 @@ $(document).ready(function(){
 		}
 
 		// pushing trainInfo to Firebase
-		database.ref().set(newTrain);
+		database.ref().push(newTrain);
 
 		// clear text-boxes
 		$("#trainInput").val("");
@@ -64,12 +65,19 @@ $(document).ready(function(){
 		var firebaseDestination = snapshot.val().destination;
 		var firebaseTime = snapshot.val().trainTime;
 		var firebaseFrequency = snapshot.val().frequency;
+
+
 		
-		var diffTime = moment().diff(moment.unix(firebaseTime), "minutes");
-		var timeRemainder = moment().diff(moment.unix(firebaseTime), "minutes") % firebaseFrequency ;
+		var firstTimeConverted = moment(firebaseTime, "HH:mm").subtract(1, "years");
+		var currentTime = moment();
+		var diffTime = moment().diff(moment.unix(firebaseTime, "X"), "minutes");
+		console.log("TIME DIFFERENCE" + diffTime);
+		var timeRemainder = diffTime % firebaseFrequency;
+		console.log(timeRemainder);
 		var minutes = firebaseFrequency - timeRemainder;
 
-		var nextTrainArrival = moment().add(minutes, "m").format("hh:mm A"); 
+		var nextTrainArrival = moment().add(minutes, "minutes"); 
+		var nextTrainConverted = moment(nextTrainArrival).format("hh:mm a");
 		
 		// Test for correct times and info
 		console.log(minutes);
@@ -79,7 +87,7 @@ $(document).ready(function(){
 		console.log(moment().format("X"));
 
 		// Append train info to table on page
-		$("#trainTable > tbody").append("<tr><td>" + firebaseName + "</td><td>" + firebaseLine + "</td><td>"+ firebaseDestination + "</td><td>" + firebaseFrequency + " mins" + "</td><td>" + nextTrainArrival + "</td><td>" + minutes + "</td></tr>");
+		$("#trainTable > tbody").append("<tr><td>" + firebaseName + "</td><td>" + firebaseLine + "</td><td>"+ firebaseDestination + "</td><td>" + firebaseFrequency + " mins" + "</td><td>" + nextTrainConverted + "</td><td>" + minutes + "</td></tr>");
 
 	});
 });
